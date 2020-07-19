@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .container {
+      width: 400px;
+      height: 400px;
+      text-align: center;
+      background-color: #3FAF82;
+    }
+
+    .container::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+      width: 1px;
+    }
+
+    #content {
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    #content:checked + label .top {
+      animation: animateTop .5s linear forwards;
+    }
+
+    #content:checked + label .bottom {
+      animation: animateBottom .5s linear forwards;
+    }
+
+    #content:checked + label .medium {
+      animation: animateMedium .5s linear forwards;
+    }
+
+    label {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+    }
+
+    label div {
+      position: absolute;
+      width: 100%;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 9999rem;
+    }
+
+    .top {
+      top: 0px;
+      animation: animateTopReverse .5s linear forwards;
+    }
+
+    .medium {
+      top: 36px;
+      animation: animateMediumReverse .5s linear forwards;
+    }
+
+    .bottom {
+      bottom: 0px;
+      animation: animateBottomReverse .5s linear forwards;
+    }
+
+    .no-animation {
+      animation: none !important;
+    }
+
+    @keyframes animateTop {
+      0% {
+        top: 0px;
+      }
+
+      50% {
+        top: 36px;
+        transform: rotate(0deg);
+      }
+
+      100% {
+        top: 36px;
+        transform: rotate(45deg);
+      }
+    }
+
+    @keyframes animateBottom {
+      0% {
+        bottom: 0px;
+      }
+
+      50% {
+        bottom: 36px;
+        transform: rotate(0deg);
+      }
+
+      100% {
+        bottom: 36px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    @keyframes animateTopReverse {
+      0% {
+        top: 36px;
+        transform: rotate(45deg);
+      }
+
+      50% {
+        top: 36px;
+        transform: rotate(0deg);
+      }
+
+      100% {
+        top: 0px;
+      }
+    }
+
+    @keyframes animateBottomReverse {
+      0% {
+        bottom: 36px;
+        transform: rotate(-45deg);
+      }
+
+      50% {
+        bottom: 36px;
+        transform: rotate(0deg);
+      }
+
+      100% {
+        bottom: 0px;
+      }
+    }
+
+    @keyframes animateMedium {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.75);
+      }
+
+      100% {
+        transform: scale(0);
+      }
+    }
+
+    @keyframes animateMediumReverse {
+      0% {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(0.75);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="content">
+
+    <label for="content" class="animation-container">
+      <div class="top no-animation"></div>
+      <div class="medium no-animation"></div>
+      <div class="bottom no-animation"></div>
+    </label>
+  </div>
+
+  <script>
+    const btn = document.getElementsByClassName('animation-container')[0]
+
+    const firstClick = () => {
+      const rows = btn.children
+
+      for (const row of rows) {
+        row.classList.remove('no-animation')
+      }
+
+      btn.removeEventListener('click', firstClick)
+    }
+
+    btn.addEventListener('click', firstClick)
+  </script>
+</body>
+</html>
